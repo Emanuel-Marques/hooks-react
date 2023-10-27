@@ -2,10 +2,6 @@ import { useState } from 'react';
 import './App.css';
 
 function App() {
-  // Hook do exercicio de imagem
-  // const [showImg, setShowImg] = useState(true);
-  // Hook do exercicio caroussel
-  const [index, setIndex] = useState(0);
   const toolKit = [
     'JavaScript',
     'TypeScript',
@@ -15,9 +11,14 @@ function App() {
     'Node',
     'Testes automatizados',
   ];
-
+  // Hook do exercicio de imagem
+  // const [showImg, setShowImg] = useState(true);
+  // Hook do exercicio caroussel
+  const [index, setIndex] = useState(0);
+  const [toolList, setToolList] = useState(toolKit);
+  const [inputValue, setInputValue] = useState('');
   function handleNextClick() {
-    if (index + 1 > toolKit.length) {
+    if (index + 1 > toolList.length) {
       setIndex(0);
     } else {
       setIndex(index + 1);
@@ -27,7 +28,12 @@ function App() {
     if (index - 1 >= 0) {
       setIndex(index - 1);
     } else {
-      setIndex(toolKit.length - 1);
+      setIndex(toolList.length - 1);
+    }
+  }
+  function handleAddClick() {
+    if (inputValue) {
+      setToolList([...toolList, inputValue]);
     }
   }
   // Função para alterar o estado da imagem
@@ -48,14 +54,14 @@ function App() {
     <>
       <h1>Caixa de ferramentas de uma pessoa desenvolvedora</h1>
       <h2>
-        { toolKit[index] }
+        { toolList[index] }
       </h2>
       <button onClick={ handlePreviousClick }>Anterior</button>
       <button onClick={ handleNextClick }>Próximo</button>
       <section>
         <h3>Adicione novas ferramentas</h3>
-        <input />
-        <button>Adicionar</button>
+        <input onChange={ ({ target }) => setInputValue(target.value) } />
+        <button onClick={ handleAddClick }>Adicionar</button>
       </section>
     </>
 
